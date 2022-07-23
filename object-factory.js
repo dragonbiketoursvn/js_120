@@ -1,48 +1,25 @@
-/*
-  Attributes
-  Title: Mythos
-  Author: Stephen Fry
+let probHumanRock = 0.3;
+let probHumanPaper = 0.2;
+let probHumanScissors = 0.166;
+let probHumanSpock = 0.166;
+let probHumanLizard = 0.166;
+let probCompWin = 0;
 
-Behavior:
-  Get Description
-
------------------------------
-Attributes
-  Title: Me Talk Pretty One Day
-  Author: David Sedaris
-
-Behavior:
-  Get Description
-
------------------------------
-Attributes
- Title: Aunts aren't Gentlemen
- Author: PG Wodehouse
-
- Behavior:
-   Get Description
-*/
-
-function createBook(title, author, read = false) {
-  return {
-    title,
-    author,
-    read: read,
-
-    getDescription() {
-      let readIt = "haven't";
-      if (read) {
-        readIt = "have";
+for (let probCompRock = 0; probCompRock <= 100; probCompRock += 1) {
+  for (let probCompPaper = 0; probCompPaper <= (100 - probCompRock); probCompPaper += 1) {
+    for (let probCompScissors = 0; probCompScissors <= (100 - probCompRock - probCompPaper); probCompScissors += 1) {
+      for (let probCompSpock = 0; probCompSpock <= (100 - probCompRock - probCompPaper - probCompScissors); probCompSpock += 1){
+        let probCompLizard = 1 - probCompRock / 100 - probCompPaper / 100 - probCompScissors / 100 - probCompSpock / 100;
+        console.log(probCompLizard);
+        // let result = probHumanRock * (probCompPaper + probCompSpock) + probHumanPaper * (probCompScissors + probCompLizard) +
+        //   probHumanScissors * (probCompRock + probCompSpock) + probHumanSpock * (probCompPaper + probCompLizard) +
+        //   probHumanLizard * (probCompRock + probCompScissors);
+        // if (result > probCompWin) {
+        //   probCompWin = result;
+        // }
       }
-      console.log(`${this.title} was written by ${this.author}.I ${readIt} read it.`);
     }
   }
 }
 
-let book1 = createBook('Mythos', 'Stephen Fry');
-let book2 = createBook('Me Talk Pretty One Day', 'David Sedaris', true);
-let book3 = createBook("Aunts aren't Gentlemen", 'PG Wodehouse');
-
-book1.getDescription();  // "Mythos was written by Stephen Fry."
-book2.getDescription();  // "Me Talk Pretty One Day was written by David Sedaris."
-book3.getDescription();  // "Aunts aren't Gentlemen was written by PG Wodehouse"
+console.log(probCompWin);
