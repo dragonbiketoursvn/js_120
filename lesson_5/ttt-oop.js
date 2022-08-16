@@ -122,21 +122,54 @@ class TTTGame {
   play() {
     this.displayWelcomeMessage();
 
-    this.board.display();
     while (true) {
-      this.humanMoves();
-      if (this.gameOver()) break;
+      this.board = new Board();
+      this.board.display();
+      while (true) {
+        this.humanMoves();
+        if (this.gameOver()) break;
 
-      this.computerMoves();
-      if (this.gameOver()) break;
+        this.computerMoves();
+        if (this.gameOver()) break;
+
+        this.board.displayWithClear();
+      }
 
       this.board.displayWithClear();
-    }
+      this.displayResults();
 
-    this.board.displayWithClear();
-    this.displayResults();
+      if (!this.playAgain()) {
+        break;
+      }
+      console.clear();
+    }
     this.displayGoodbyeMessage();
   }
+
+  playAgain() {
+    let choice = readline.question("Would you like to play again (y/n)?").toLowerCase();
+
+    while (!['y', 'n'].includes(choice)) {
+      console.log("I'm afraid that's not a valid choice.\n");
+      choice = readline.question("Would you like to play again (y/n)?").toLowerCase();
+    }
+    return 'y' === choice.toLowerCase();
+  }
+
+  /*
+
+After each game ends, the program should ask the human player whether they want to play again.
+If they do, then the program should start a new game of TTT. Otherwise, it should end the program.
+
+The program should accept y or n (in lowercase or uppercase) as valid answers at the "play again?" prompt; all other answers are invalid.
+
+The program should display the welcome message before the first game starts. It should never display the message again.
+
+The program should display the results after each game ends, but before asking whether the human player wants to play again.
+
+The program should display the goodbye message when the human player decides that he doesn't want to play again.
+It should never display the goodbye message before that.
+  */
 
   displayWelcomeMessage() {
     console.clear();
